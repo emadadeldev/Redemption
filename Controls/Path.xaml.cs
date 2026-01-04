@@ -5,12 +5,13 @@
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using EmadAdel.Redemption_Team.Controls;
 
-namespace Emadadel.Redemption_Team.path
+namespace EmadAdel.Redemption_Team.Controls
 {
-    public partial class InstallerControl : UserControl
+    public partial class Path : UserControl
     {
-        public InstallerControl()
+        public Path()
         {
             InitializeComponent();
         }
@@ -21,8 +22,6 @@ namespace Emadadel.Redemption_Team.path
             {
                 dialog.Description = "اختر مسار تثبيت التعريب";
                 dialog.ShowNewFolderButton = true;
-
-                //dialog.SelectedPath = InstallPathTextBox.Text;
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -44,5 +43,14 @@ namespace Emadadel.Redemption_Team.path
             }
         }
 
+        private void InstallBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PathContent.Visibility = Visibility.Collapsed;
+            installBtn.Visibility = Visibility.Collapsed;
+            ProgressBar.Visibility = Visibility.Visible;
+
+
+            DownloadProgressBar.StartDownload(InstallPathTextBox.Text);
+        }
     }
 }

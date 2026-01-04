@@ -1,7 +1,7 @@
 <Window x:Class="EmadAdel.Redemption_Team.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:page="clr-namespace:Emadadel.Redemption_Team.path"
+        xmlns:controls="clr-namespace:EmadAdel.Redemption_Team.Controls"
         WindowState="Normal"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -84,9 +84,9 @@
     </Grid>
 
         <Border x:Name="options"
-       Panel.ZIndex="-1"
-       Visibility="Collapsed">
-            <page:InstallerControl />
+           Panel.ZIndex="-1"
+           Visibility="Collapsed">
+            <controls:Path />
         </Border>
     </Grid>
 </Window>
