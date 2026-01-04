@@ -71,7 +71,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="page\installer.xaml">
+    <Page Include="Controls\installer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,7 +81,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="page\installer.xaml.cs">
+    <Compile Include="Controls\installer.xaml.cs">
       <DependentUpon>installer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
