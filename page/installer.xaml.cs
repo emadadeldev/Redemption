@@ -6,7 +6,7 @@ using System.Windows;
 using System;
 using System.Windows.Controls;
 
-namespace Redemption_Team.page
+namespace Redemption_Team.path
 {
     public partial class InstallerControl : UserControl
     {
