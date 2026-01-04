@@ -46,34 +46,38 @@
                 <Image Source="Assets/logo.png"
                        Width="300"/>
 
-                <TextBlock Text="المساهمين في التعريب"
-                           FontSize="18"
+                <TextBlock Text="فريق التعريب"
+                           FontSize="25"
                            FontWeight="SemiBold"
                            Foreground="White"
                            HorizontalAlignment="Center"
                            Margin="10"/>
 
-                <ScrollViewer Height="200" Margin="0,0,1,0">
-                    <StackPanel>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="اسم عشوائي" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                </ScrollViewer>
 
-            </StackPanel>
+                    <TextBlock x:Name="Contributor_Text"
+                       Text="...جاري تحميل قائمة المساهمين"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       Margin="5"/>
+
+                    <ScrollViewer Height="200" Margin="0,0,1,0">
+                        <ItemsControl x:Name="ContributorsList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" FontWeight="SemiBold" Padding="10" FontSize="15" Background="Black" HorizontalAlignment="Center" Foreground="White" Margin="2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </StackPanel>
 
             <!-- Bottom -->
                 <Grid Grid.Row="2">
-                    <Button  Click="Button_Options_Click"
+                    <Button x:Name="Nextbtn"
+                        Visibility="Collapsed"
+                        Click="Button_Options_Click"
                         Content="التالي"
                         Width="100"
                         VerticalAlignment="Center"

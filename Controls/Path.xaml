@@ -17,21 +17,21 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="30" Width="500" HorizontalAlignment="Left" x:Name="PathContent">
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="30" Width="459" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="PathContent">
 
             <!-- Path Block -->
-            <TextBlock Text="مسار اللعبة"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                       FontFamily="arial"
-                       Foreground="White"
-                       Margin="0,0,0,8"/>
+            <TextBlock Text="Red Dead Redemption 2 اختار المسار الصحيح"
+                 Foreground="White"
+                 FontWeight="Medium"
+                 FontSize="15"
+                 Margin="10"/>
 
             <DockPanel LastChildFill="True">
 
                 <TextBox x:Name="InstallPathTextBox"
                          Text="C:\Program Files\Rockstar Games\Red Dead Redemption 2"
                          Height="32"
+                         FontSize="14"
                          VerticalContentAlignment="Center"
                          IsReadOnly="True"
                          Foreground="White"
@@ -44,11 +44,7 @@
                         BorderThickness="0"/>
             </DockPanel>
 
-            <!--Tip Text-->
-            <TextBlock Text="Red Dead Redemption 2 يرجى اختيار المسار الصحيح للعبة"
-                       Foreground="#AAAAAA"
-                       FontSize="13"
-                       Margin="0,5,0,0"/>
+     
         </StackPanel>
         
         <!-- Bottom -->

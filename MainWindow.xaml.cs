@@ -4,22 +4,9 @@
 // =======================================================
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
 using System.Net.Http;
-using System.IO.Compression;
-using System.Windows.Forms;
 
 namespace EmadAdel.Redemption_Team
 {
@@ -31,6 +18,39 @@ namespace EmadAdel.Redemption_Team
         public MainWindow()
         {
             InitializeComponent();
+            LoadContributors();
+        }
+
+        public async void LoadContributors()
+        {
+            try
+            {
+                string url = "https://raw.githubusercontent.com/emadadeldev/Redemption/refs/heads/main/CONTRIBUTOR.md";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    string content = await client.GetStringAsync(url);
+
+                    var lines = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    List<string> contributors = new List<string>();
+                    foreach (var line in lines)
+                    {
+                        string trimmed = line.Trim();
+                        if (!string.IsNullOrWhiteSpace(trimmed))
+                            contributors.Add(trimmed);
+                    }
+
+                    ContributorsList.ItemsSource = contributors;
+                }
+
+                Contributor_Text.Visibility = Visibility.Collapsed;
+                Nextbtn.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Contributor_Text.Text = "❌ فشل تحميل المساهمين";
+            }
         }
 
         private void Button_Options_Click(object sender, RoutedEventArgs e)
