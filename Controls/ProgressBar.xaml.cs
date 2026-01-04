@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
+using System.IO.Compression;
 
 
 namespace EmadAdel.Redemption_Team.Controls
@@ -12,6 +13,7 @@ namespace EmadAdel.Redemption_Team.Controls
     {
         private WebClient webClient;
         private bool isDownloading = false;
+        private string zipFilePath;
 
         public ProgressBar()
         {
@@ -30,35 +32,31 @@ namespace EmadAdel.Redemption_Team.Controls
         {
             if (isDownloading) return;
 
-            string url = "http://127.0.0.1:5500/local.zip";
+            string url = "http://127.0.0.1:5500/build.zip";
 
             string fileName = System.IO.Path.GetFileName(new Uri(url).LocalPath);
 
-            string downloadPath = System.IO.Path.Combine(savePath, fileName);
-
+            zipFilePath = System.IO.Path.Combine(savePath, fileName);
 
             try
             {
                 isDownloading = true;
-
                 prog.Value = 0;
 
                 using (webClient = new WebClient())
                 {
                     webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
-
                     webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
 
-                    await webClient.DownloadFileTaskAsync(new Uri(url), downloadPath);
+                    await webClient.DownloadFileTaskAsync(new Uri(url), zipFilePath);
                 }
             }
             catch (Exception ex)
             {
                 isDownloading = false;
-                MessageBox.Show($"❌ حدث خطأ: {ex.Message}", "خطأ", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);
             }
         }
-
         private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             double percentage = e.ProgressPercentage;
@@ -66,19 +64,54 @@ namespace EmadAdel.Redemption_Team.Controls
             prog.Value = percentage;
         }
 
+        private void ExtractZipWithOverride(string zipPath, string extractPath)
+        {
+            using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+            {
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    string fullPath = System.IO.Path.Combine(extractPath, entry.FullName);
+
+                    if (!fullPath.StartsWith(extractPath, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (string.IsNullOrEmpty(entry.Name))
+                    {
+                        Directory.CreateDirectory(fullPath);
+                        continue;
+                    }
+
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fullPath));
+
+                    entry.ExtractToFile(fullPath, true);
+                }
+            }
+        }
+
         private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             isDownloading = false;
 
-            if (e.Error == null)
+            if (e.Error != null)
+            {
+                loadingText.Text = "❌ خطأ في التحميل";
+                return;
+            }
+
+            try
             {
                 prog.Value = 100;
+                loadingText.Text = "...جاري تثبيت التعريب";
 
-                loadingText.Text = "اكتمل التثبيت و التحميل بنجاح";
+                string extractPath = System.IO.Path.GetDirectoryName(zipFilePath);
+
+                ExtractZipWithOverride(zipFilePath, extractPath);
+
+                loadingText.Text = ".تم التثبيت بنجاح";
             }
-            else
+            catch (Exception ex)
             {
-                loadingText.Text = "حدث خطأ في التحميل:";
+                MessageBox.Show(ex.Message);
             }
         }
 
