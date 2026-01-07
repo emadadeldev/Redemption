@@ -1,4 +1,8 @@
-﻿using System;
+﻿// =======================================================
+// Developer: Emad Adel
+// Source Code https://github.com/emadadeldev/Redemption
+// =======================================================
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +36,7 @@ namespace EmadAdel.Redemption_Team.Controls
         {
             if (isDownloading) return;
 
-            string url = "http://127.0.0.1:5500/build.zip";
+            string url = "https://github.com/emadadeldev/RDR2AR/archive/refs/heads/main.zip";
 
             string fileName = System.IO.Path.GetFileName(new Uri(url).LocalPath);
 
@@ -70,10 +74,16 @@ namespace EmadAdel.Redemption_Team.Controls
             {
                 foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    string fullPath = System.IO.Path.Combine(extractPath, entry.FullName);
+                    string relativePath = entry.FullName;
 
-                    if (!fullPath.StartsWith(extractPath, StringComparison.OrdinalIgnoreCase))
+                    int index = relativePath.IndexOf('/');
+                    if (index >= 0)
+                        relativePath = relativePath.Substring(index + 1);
+
+                    if (string.IsNullOrEmpty(relativePath))
                         continue;
+
+                    string fullPath = System.IO.Path.Combine(extractPath, relativePath);
 
                     if (string.IsNullOrEmpty(entry.Name))
                     {
@@ -149,3 +159,4 @@ namespace EmadAdel.Redemption_Team.Controls
         }
     }
 }
+
