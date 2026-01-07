@@ -20,10 +20,21 @@ namespace EmadAdel.Redemption_Team
         public MainWindow()
         {
             InitializeComponent();
-            LoadContributors();
+            //LoadContributors();
+        }
 
-            PlayMusic.Play("American Reprise.mp3", loop: true, volume: 1.0);
-
+        public void SetContributors(List<string> contributors)
+        {
+            if (contributors != null && contributors.Count > 0)
+            {
+                ContributorsList.ItemsSource = contributors;
+                Contributor_Text.Visibility = Visibility.Collapsed;
+                Nextbtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Contributor_Text.Text = "❌ لم يتم تحميل المساهمين";
+            }
         }
 
         public async void LoadContributors()
