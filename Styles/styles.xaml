@@ -55,7 +55,8 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Width="400"
-                            CornerRadius="3">
+                            Padding="5"
+                            CornerRadius="6">
                         <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
                 </ControlTemplate>
