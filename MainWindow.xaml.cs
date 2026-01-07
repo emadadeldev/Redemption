@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Net.Http;
+using EmadAdel.Redemption_Team.Music;
 
 namespace EmadAdel.Redemption_Team
 {
@@ -15,10 +16,14 @@ namespace EmadAdel.Redemption_Team
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             LoadContributors();
+
+            PlayMusic.Play("American Reprise.mp3", loop: true, volume: 1.0);
+
         }
 
         public async void LoadContributors()
